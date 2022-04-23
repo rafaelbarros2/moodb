@@ -42,6 +42,7 @@ public class MoodbService {
     }
 
 
+
     public MoodbResponse verify(String hash) {
         String link;
       for(User user : Auth.getUsers()) {
