@@ -1,19 +1,21 @@
 package com.api.moondb.singleton;
 
-import com.api.moondb.context.designermoodb.Moodb;
+import com.api.moondb.context.designermoodb.model.Moodb;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MoodbList {
 
-    private static Set<Moodb> moodbs;
+    private static Map<Long,Moodb> moodbs;
+    private static Long id;
 
-    public static Set<Moodb> getMoodb() {
+
+    public static Map<Long, Moodb> getMoodb() {
         if(moodbs == null) {
-            moodbs = new HashSet<>();
-            moodbs.add(
-                    new Moodb(1L, "rafael", "nao é",null));
+            moodbs =  new HashMap<>();
+            id = (long) (moodbs.size() + 1);
+            moodbs.put( id ,new Moodb(id, "rafael", "nao é",null));
 
         }
         return moodbs;

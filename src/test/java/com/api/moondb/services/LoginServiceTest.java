@@ -1,6 +1,5 @@
 package com.api.moondb.services;
 
-import com.api.moondb.context.auth.User;
 import com.api.moondb.context.auth.model.request.LoginRequest;
 import com.api.moondb.context.designermoodb.services.LoginService;
 import com.api.moondb.singleton.Auth;

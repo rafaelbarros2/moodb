@@ -1,4 +1,4 @@
-package com.api.moondb.context.auth;
+package com.api.moondb.context.auth.model;
 
 
 import lombok.AllArgsConstructor;

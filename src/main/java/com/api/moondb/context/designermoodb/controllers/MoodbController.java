@@ -1,6 +1,7 @@
 package com.api.moondb.context.designermoodb.controllers;
 
-import com.api.moondb.context.designermoodb.Moodb;
+import com.api.moondb.context.designermoodb.model.Moodb;
+import com.api.moondb.context.designermoodb.model.response.MoodbResponse;
 import com.api.moondb.context.designermoodb.services.MoodbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,14 @@ public class MoodbController {
     private final MoodbService moodbService;
 
     @PostMapping("/")
-    public ResponseEntity<String> login(@Valid @RequestBody Moodb moodb, @RequestHeader("token") String token) {
-        return ResponseEntity.ok(moodbService.insertMoodb(moodb, token));
+    public ResponseEntity<MoodbResponse> save(@Valid @RequestBody Moodb moodb, @RequestHeader("token") String token) {
+        MoodbResponse response = moodbService.insertMoodb(moodb, token);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @GetMapping("/{userName}/{id}/enter")
+    public ResponseEntity<MoodbResponse> find(@RequestParam String name, @PathVariable Long id ){
+        MoodbResponse response = moodbService.find(id);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

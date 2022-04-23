@@ -1,4 +1,4 @@
-package com.api.moondb.context.designermoodb;
+package com.api.moondb.context.designermoodb.model;
 
 public class Designer {
 
