@@ -15,7 +15,7 @@ public class ImagemService {
 
     public ImagemResponse saveComments(Long id, List<Imagem> comment) {
        if(MoodbList.getMoodb().get(id).getImagens() == null) return response("Imagem Não existe", (short) 404,null);
-        if (id != null && comment != null ) {
+        if (comment != null && !comment.isEmpty()) {
             for (Imagem img : comment) {
 
                 for (Imagem imagem : MoodbList.getMoodb().get(id).getImagens()) {
