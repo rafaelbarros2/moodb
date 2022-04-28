@@ -1,5 +1,6 @@
 package com.api.moondb.context.designermoodb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +20,6 @@ public class Moodb {
     private String subtitle;
     @NotNull
     private List<Imagem> imagens;
+    @JsonIgnore
     private Long idUser;
 }
