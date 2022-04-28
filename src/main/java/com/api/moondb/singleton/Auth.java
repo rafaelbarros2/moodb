@@ -12,7 +12,8 @@ public class Auth {
     public static List<User> getUsers() {
         if(users == null) {
             users = new ArrayList<>();
-            users.add(new User(1L, "rafael", "123",null));
+            users.add(new User(1L, "123", "rafael",null));
+            users.add(new User(1L, "123", "sbnc",null));
 
         }
         return users;
