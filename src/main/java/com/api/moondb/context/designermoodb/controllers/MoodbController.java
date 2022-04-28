@@ -22,8 +22,8 @@ public class MoodbController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @GetMapping("/{userName}/{id}/enter")
-    public ResponseEntity<MoodbResponse> find(@RequestParam String name, @PathVariable Long id ){
+    @GetMapping("/{ownerMoodb}/{id}/enter")
+    public ResponseEntity<MoodbResponse> find(@RequestParam String nameCustomer, @PathVariable Long id, String ownerMoodb  ){
         MoodbResponse response = moodbService.find(id);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
