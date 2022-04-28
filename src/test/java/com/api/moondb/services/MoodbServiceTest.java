@@ -34,7 +34,7 @@ class MoodbServiceTest {
 
     @BeforeEach
     void setUp() {
-        moodb =  new Moodb(2L, "rafael", "nao é",null);
+        moodb =  new Moodb(2L, "rafael", "nao é",null,1L);
         user = new LoginRequest( "rafael", "123");
         Auth.getUsers().add(new User(2L,"123","rafael","qualquertoken"));
          id = 1L;
@@ -64,5 +64,11 @@ class MoodbServiceTest {
     @Test
     void findShouldReturnMoodbWhenIdExists(){
         assertTrue(MoodbList.getMoodb().containsKey(1L));
+    }
+
+    @Test
+    void findAllShouldReturnMoodbsWhenTokenIsValid(){
+        when(loginService.login(user)).thenReturn( LoginResponse.builder().token("qualquertoken").build());
+        assertEquals(200, moodbService.findAll(loginService.login(user).getToken()).getStatusCode());
     }
 }

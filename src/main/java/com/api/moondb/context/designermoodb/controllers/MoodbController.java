@@ -27,4 +27,10 @@ public class MoodbController {
         MoodbResponse response = moodbService.find(id);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
+
+    @GetMapping
+    public ResponseEntity<MoodbResponse> findAll( @RequestHeader("token") String token){
+        MoodbResponse response = moodbService.findAll(token);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 }

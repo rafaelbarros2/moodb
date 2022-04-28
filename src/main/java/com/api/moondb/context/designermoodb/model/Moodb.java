@@ -19,4 +19,5 @@ public class Moodb {
     private String subtitle;
     @NotNull
     private List<Imagem> imagens;
+    private Long idUser;
 }

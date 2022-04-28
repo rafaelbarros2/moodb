@@ -15,7 +15,7 @@ public class MoodbList {
         if(moodbs == null) {
             moodbs =  new HashMap<>();
             id = (long) (moodbs.size() + 1);
-            moodbs.put( id ,new Moodb(id, "rafael", "nao é",null));
+            moodbs.put( id ,new Moodb(id, "rafael", "nao é",null,1L));
 
         }
         return moodbs;

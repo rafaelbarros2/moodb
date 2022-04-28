@@ -8,16 +8,26 @@ import com.api.moondb.singleton.MoodbList;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MoodbService {
 
-    public MoodbResponse insertMoodb(Moodb moodb, String hash) {
-        if(moodb != null && hash != null ) {
-            MoodbList.getMoodb().put(newId(),moodb);
-            System.out.println(MoodbList.getMoodb());
-
-            return verify(hash);
+    public MoodbResponse insertMoodb(Moodb moodb, String token) {
+        if(moodb != null && token != null ) {
+            if(verifyToken(token)) {
+                moodb.setIdUser(returnUser(token).getId());
+                MoodbList.getMoodb().put(newId(), moodb);
+                return verifyCreate(token);
+            }else {
+                return MoodbResponse.builder()
+                        .timestamp(LocalDateTime.now())
+                        .statusCode((short) 403)
+                        .error("Acesso Negado")
+                        .build();
+            }
         }
         return MoodbResponse.builder()
                 .timestamp(LocalDateTime.now())
@@ -41,9 +51,23 @@ public class MoodbService {
                 .build();
     }
 
+    public MoodbResponse findAll(String token){
+        if(token != null && verifyToken(token)) {
+            return MoodbResponse.builder()
+                    .moodbList(filterMoodb(returnUser(token)))
+                    .timestamp(LocalDateTime.now())
+                    .statusCode((short) 200)
+                    .build();
+        }
+        return MoodbResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .statusCode((short) 403)
+                .error("Não Autorizado")
+                .build();
+    }
 
 
-    public MoodbResponse verify(String hash) {
+    public MoodbResponse verifyCreate(String hash) {
         String link;
       for(User user : Auth.getUsers()) {
           link = "/" + user.getLogin() + "/" + user.getId().toString() + "/" + "enter";
@@ -64,4 +88,25 @@ public class MoodbService {
     private Long newId(){
         return MoodbList.getMoodb().size() + 1L;
     }
+
+   private User returnUser(String token){
+       for(User user : Auth.getUsers()) {
+           if(token.equals(user.getHash()))
+               return user;
+       }
+       return null;
+   }
+
+   private List<Moodb> filterMoodb(User user){
+       return MoodbList.getMoodb().values().stream().filter(moodb -> {
+           return moodb.getIdUser().equals(user.getId());
+       }).collect(Collectors.toList());
+   }
+
+   private boolean verifyToken(String token){
+       for(User user : Auth.getUsers()) {
+           return user.getHash().equals(token);
+       }
+       return false;
+   }
 }
