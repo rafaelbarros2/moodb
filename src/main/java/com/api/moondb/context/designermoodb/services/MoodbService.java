@@ -44,6 +44,7 @@ public class MoodbService {
                     .statusCode((short) 200)
                     .moodb(MoodbList.getMoodb().get(id))
                     .build();
+            
         }
         return MoodbResponse.builder()
                 .timestamp(LocalDateTime.now())
