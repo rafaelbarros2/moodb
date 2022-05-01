@@ -13,8 +13,7 @@ public class Auth {
         if(users == null) {
             users = new ArrayList<>();
             users.add(new User(1L, "123", "rafael",null));
-            users.add(new User(1L, "123", "sbnc",null));
-
+            users.add(new User(2L, "123", "sbnc",null));
         }
         return users;
     }

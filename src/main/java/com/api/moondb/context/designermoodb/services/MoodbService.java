@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -98,14 +99,17 @@ public class MoodbService {
    }
 
    private List<Moodb> filterMoodb(User user){
-       return MoodbList.getMoodb().values().stream().filter(moodb -> {
-           return moodb.getIdUser().equals(user.getId());
-       }).collect(Collectors.toList());
+       return MoodbList.getMoodb()
+               .values().stream()
+               .filter(moodb ->
+                       moodb.getIdUser().equals(user.getId()))
+               .collect(Collectors.toList());
    }
 
    private boolean verifyToken(String token){
        for(User user : Auth.getUsers()) {
-           return user.getHash().equals(token);
+           if(Objects.nonNull(user.getHash()))
+               return user.getHash().equals(token);
        }
        return false;
    }

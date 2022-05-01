@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/moodbs")
@@ -16,7 +17,7 @@ public class MoodbController {
 
     private final MoodbService moodbService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<MoodbResponse> save(@Valid @RequestBody Moodb moodb, @RequestHeader("token") String token) {
         MoodbResponse response = moodbService.insertMoodb(moodb, token);
         return ResponseEntity.status(response.getStatusCode()).body(response);
